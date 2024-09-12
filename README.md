@@ -5,6 +5,8 @@ This is a TCP chat server written in Go, allowing multiple clients to connect an
 ## Authors
 
 * Ismail Bentour
+* Anass Asbai
+* Imad Marwan Tounsadi
 
 ## Table of Contents
 
@@ -33,17 +35,17 @@ Installation
 
 Clone the repository:
 ``` bash
-
+https://github.com/ibentour/Net-cat
 ```
 
 Navigate to the project directory:
 ``` bash
-
+cd Server
 ```
 
 Build the project:
 ``` bash
-
+go build -o server .
 ```
 
 
@@ -53,11 +55,12 @@ Build the project:
 
 To start the server on the default port (8989):
 ``` bash
+./server 
 ```
 
 To start the server on a specific port:
 ``` bash
-
+./server <port>
 ```
 
 Connecting to the Server
