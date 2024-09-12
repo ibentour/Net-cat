@@ -2,71 +2,84 @@
 
 This is a TCP chat server written in Go, allowing multiple clients to connect and communicate with each other in real-time. The server handles client connections, broadcasts messages, and maintains a chat log.
 
+## Authors
+
+* Ismail Bentour
+
+## Table of Contents
+
+* Features
+* Requirements
+* Installation
+* Usage
+* Project Structure
+* How It Works
+
 ## Features
 
-*   Multiple client connections (up to 10 concurrent connections)
-*   Real-time message broadcasting to all connected clients
-*   Chat log maintenance (stored in a file named "chat.log")
-*   Client disconnection handling
-*   Server shutdown handling (with a 30ms delay to allow clients to receive the shutdown message)
-*   Username management (clients can change their usernames)
-*   Message filtering (non-printable ASCII characters are removed)
-*   Code Overview
-*   The code is organized into several functions, each responsible for a specific task:
+* Multi-client support with a maximum of 10 concurrent connections
+* Real-time message broadcasting
+* Username selection and validation
+* Chat history logging
+* Graceful server shutdown
+* Command support (e.g., /exit, /change)
+* ASCII art welcome message
 
-### main()
+## Requirements
 
-- Initializes the server, listening on a specified port (default: 8989)
-- Handles SIGINT signals to shut down the server gracefully
-- Opens a log file for chat logging
-- Accepts new client connections and handles them in separate goroutines
+Go 1.15 or higher
 
-### handleUser()
-- Handles a new client connection
-- Sends a welcome message and chat history to the client
-- Broadcasts a message to all clients when a new client joins
-- Receives and processes messages from the client
-- Handles client disconnections
+Installation
 
-### getUsername()
+Clone the repository:
+``` bash
 
-- Retrieves a username from a client
-- Checks for username validity and uniqueness
-- Returns the username or an error message
+```
 
-### sendMessagesToClient()
+Navigate to the project directory:
+``` bash
 
-- Sends messages to a client from the broadcast channel
-- Handles client disconnections
+```
 
-### receiveMessagesFromClient()
+Build the project:
+``` bash
 
-- Receives messages from a client
-- Processes and filters messages (removing non-printable ASCII characters)
-- Broadcasts messages to all clients
-- Handles client disconnections
+```
 
-### isArrowKey()
-
-- Checks if a message contains an arrow key press (Up, Down, Left, or Right)
-- filterNonPrintableASCII()
-- Removes non-printable ASCII characters from a string
-
-### broadcastMessages()
-
-- Broadcasts messages to all connected clients
 
 ## Usage
 
-To run the server, execute the following command:
+### Starting the Server
 
+To start the server on the default port (8989):
 ``` bash
-go run server.go
 ```
-To specify a custom port, use the following command:
 
+To start the server on a specific port:
 ``` bash
-go run server.go <port>
-```
-Replace <port> with the desired port number.
 
+```
+
+Connecting to the Server
+Use a TCP client (like netcat) to connect to the server:
+``` bash
+nc localhost 8989
+```
+
+## Project Structure
+
+### The project consists of two main Go files:
+
+* server.go: Contains the main function and server initialization logic.
+* user.go: Handles client connections and message processing.
+
+## How It Works
+
+* The server listens for incoming TCP connections on the specified port.
+* When a client connects, they are greeted with an ASCII art welcome message.
+* The client is prompted to enter a username, which is validated for uniqueness and content.
+* Once a valid username is provided, the client joins the chat room.
+* Messages sent by clients are broadcasted to all connected clients.
+* The server maintains a log of all chat messages in a file named chat.log.
+* Clients can use special commands like /exit to leave the chat or /change to change their username.
+* The server gracefully handles interrupts (Ctrl+C) and notifies all clients before shutting down.
